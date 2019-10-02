@@ -1,0 +1,110 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+mqtt:
+    broker: !secret broker_ip
+    port: 1883
+    username: !secret broker_username
+    password: !secret broker_password
+    
+switch Motor-Controls:
+    - platform: mqtt
+      name: "BORE_START1"
+      command_topic: "cmnd/sonoff4chpro/power1"
+      state_topic: "stat/sonoff4chpro/POWER1"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      
+    - platform: mqtt
+      name: "BORE_START2"
+      command_topic: "cmnd/sonoff4chpro/power2"
+      state_topic: "stat/sonoff4chpro/POWER2"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      
+    - platform: mqtt
+      name: "BORE_STOP"
+      command_topic: "cmnd/sonoff4chpro/power3"
+      state_topic: "stat/sonoff4chpro/POWER3"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - platform: mqtt
+      name: "SUMP_TANK_STATUS"
+      command_topic: "cmnd/sonoff4chpro/power4"
+      state_topic: "stat/sonoff4chpro/POWER4"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+
+switch light-controls:
+    - platform: mqtt
+      name: "OVER_TANK_SENSOR"
+      icon: mdi:light-switch
+      command_topic: "cmnd/sonoffbasic/power"
+      state_topic: "stat/sonoffbasic/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true 
+
+    - platform: mqtt
+      name: "MOTOR_SUMP"
+      icon: mdi:light-switch
+      command_topic: "cmnd/motor/power"
+      state_topic: "stat/motor/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true 
+#https://community.home-assistant.io/t/mqtt-how-to-retain-sonoff-switch-setting-across-restarts-of-ha/21504
+
+    - platform: mqtt
+      name: "SUMP_MOTOR"
+      icon: mdi:arch
+      command_topic: "cmnd/sumpmotor/power"
+      state_topic: "stat/sumpmotor/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true
+
+
+binary_sensor:
+  - platform: ping
+    host: !secret over_tank_sensor_ip
+    name: over_tank_sensor
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: !secret sump_motor_ip
+    name: sump_motor
+    count: 2
+    scan_interval: 30
+
+
+timer:
+  bore_timer:
+    duration: '00:10:00'
+  run_bore_timer:
+    duration: '00:30:00'
+  sump_timer:
+    duration: '00:10:00'
+      
+      

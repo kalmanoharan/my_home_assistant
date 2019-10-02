@@ -1,0 +1,5 @@
+bore_motor_start:
+  name: bore_motor_start
+  entities:
+    - switch.BORE_START1
+    - switch.BORE_START2
