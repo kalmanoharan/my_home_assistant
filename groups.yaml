@@ -3,3 +3,14 @@ bore_motor_start:
   entities:
     - switch.BORE_START1
     - switch.BORE_START2
+
+System_Metrics:
+  name: Pi
+  entities:
+    - sensor.disk_free
+    - sensor.last_boot
+    - sensor.memory_free
+    - sensor.processor_use
+    - sensor.network_throughput_in_eth0
+    - sensor.network_throughput_out_eth0
+

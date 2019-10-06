@@ -54,15 +54,15 @@ switch Motor-Controls:
       payload_off: "OFF"
 
 switch light-controls:
-    - platform: mqtt
-      name: "OVER_TANK_SENSOR"
-      icon: mdi:light-switch
-      command_topic: "cmnd/sonoffbasic/power"
-      state_topic: "stat/sonoffbasic/POWER"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
-      retain: true 
+#    - platform: mqtt
+#      name: "OVER_TANK_SENSOR"
+#      icon: mdi:light-switch
+#      command_topic: "cmnd/sonoffbasic/power"
+#      state_topic: "stat/sonoffbasic/POWER"
+#      qos: 1
+#      payload_on: "ON"
+#      payload_off: "OFF"
+#      retain: true 
 
     - platform: mqtt
       name: "MOTOR_SUMP"
@@ -85,11 +85,21 @@ switch light-controls:
       payload_off: "OFF"
       retain: true
 
+    - platform: mqtt
+      name: "LAMP"
+      icon: mdi:light-switch
+      command_topic: "cmnd/lamp/power"
+      state_topic: "stat/lamp/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true 
+
 
 binary_sensor:
   - platform: ping
-    host: !secret over_tank_sensor_ip
-    name: over_tank_sensor
+    host: !secret lamp_sonoff_ip
+    name: Lamp_sonoff
     count: 2
     scan_interval: 30
   - platform: ping
