@@ -94,7 +94,16 @@ switch light-controls:
       payload_on: "ON"
       payload_off: "OFF"
       retain: true 
-
+      
+    - platform: mqtt
+      name: "TEMP_MOTOR"
+      icon: mdi:light-switch
+      command_topic: "cmnd/temp_motor/power"
+      state_topic: "stat/temp_motor/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true 
 
 binary_sensor:
   - platform: ping
@@ -107,7 +116,12 @@ binary_sensor:
     name: sump_motor
     count: 2
     scan_interval: 30
-
+  - platform: ping
+    host: !secret temp_motor_ip
+    name: temp_motor
+    count: 2
+    scan_interval: 30
+    
 sensor:
   - platform: systemmonitor
     resources:
