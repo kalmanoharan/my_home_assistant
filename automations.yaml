@@ -67,3 +67,29 @@
   - data:
       entity_id: script.1569585303614
     service: script.turn_on
+- id: '1570414258460'
+  alias: If over tank goes empty Alert
+  trigger:
+  - entity_id: switch.over_tank_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Tank Nearing to Empty
+      title: TANK GOING TO BE EMPTY
+    service: persistent_notification.create
+- id: '1570414348237'
+  alias: Over tank full Alert
+  trigger:
+  - entity_id: switch.over_tank_sensor
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: Tank will be full, off the motor
+      title: TANK GOING TO BE FULL
+    service: persistent_notification.create
