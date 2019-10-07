@@ -77,9 +77,15 @@
   condition: []
   action:
   - data:
-      message: Tank Nearing to Empty
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank nearing to Empty, ON
+        the motor'
       title: TANK GOING TO BE EMPTY
     service: persistent_notification.create
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank nearing to Empty, ON
+        the motor'
+      title: TANK GOING TO BE EMPTY
+    service: notify.mypushbullet
 - id: '1570414348237'
   alias: Over tank full Alert
   trigger:
@@ -90,6 +96,12 @@
   condition: []
   action:
   - data:
-      message: Tank will be full, off the motor
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be full, off the
+        motor'
       title: TANK GOING TO BE FULL
     service: persistent_notification.create
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be full, off the
+        motor'
+      title: TANK GOING TO BE FULL
+    service: notify.mypushbullet

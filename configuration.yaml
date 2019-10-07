@@ -140,6 +140,11 @@ sensor:
       - type: throughput_network_out
         arg: eth0
 
+notify:
+  - name: mypushbullet
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key
+
 timer:
   bore_timer:
     duration: '00:10:00'
