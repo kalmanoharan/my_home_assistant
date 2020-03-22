@@ -30,7 +30,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true 
+
 
 #    - platform: mqtt
 #      name: "SUMP_MOTOR"
@@ -51,7 +51,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true
+
 
     - platform: mqtt
       name: "2nd_FLR_HEAD-ROOM"
@@ -61,7 +61,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true
+
 
     - platform: mqtt
       name: "VINAYAGAR"
@@ -71,7 +71,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true
+
       
     - platform: mqtt
       name: "GATE_LAMP"
@@ -81,7 +81,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true 
+
       
     - platform: mqtt
       name: "GND_LAMP"
@@ -91,7 +91,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true 
+ 
       
     - platform: mqtt
       name: "1st_PORTICO"
@@ -101,7 +101,7 @@ switch light-controls:
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
-      retain: true 
+
 
 binary_sensor:
   - platform: ping
