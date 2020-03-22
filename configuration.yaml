@@ -20,86 +20,84 @@ mqtt:
     username: !secret broker_username
     password: !secret broker_password
     
-switch Motor-Controls:
-    - platform: mqtt
-      name: "BORE_START1"
-      command_topic: "cmnd/sonoff4chpro/power1"
-      state_topic: "stat/sonoff4chpro/POWER1"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
-      
-    - platform: mqtt
-      name: "BORE_START2"
-      command_topic: "cmnd/sonoff4chpro/power2"
-      state_topic: "stat/sonoff4chpro/POWER2"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
-      
-    - platform: mqtt
-      name: "BORE_STOP"
-      command_topic: "cmnd/sonoff4chpro/power3"
-      state_topic: "stat/sonoff4chpro/POWER3"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
-
-    - platform: mqtt
-      name: "SUMP_TANK_STATUS"
-      command_topic: "cmnd/sonoff4chpro/power4"
-      state_topic: "stat/sonoff4chpro/POWER4"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
 
 switch light-controls:
     - platform: mqtt
-      name: "OVER_TANK_SENSOR"
+      name: "ELEVATION"
       icon: mdi:light-switch
-      command_topic: "cmnd/overtank/power"
-      state_topic: "stat/overtank/POWER"
+      command_topic: "cmnd/elevation_lamp/power"
+      state_topic: "stat/elevation_lamp/POWER"
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
       retain: true 
 
-    - platform: mqtt
-      name: "MOTOR_SUMP"
-      icon: mdi:light-switch
-      command_topic: "cmnd/motor/power"
-      state_topic: "stat/motor/POWER"
-      qos: 1
-      payload_on: "ON"
-      payload_off: "OFF"
-      retain: true 
+#    - platform: mqtt
+#      name: "SUMP_MOTOR"
+#      icon: mdi:arch
+#      command_topic: "cmnd/sumpmotor/power"
+#      state_topic: "stat/sumpmotor/POWER"
+#      qos: 1
+#      payload_on: "ON"
+#      payload_off: "OFF"
+#      retain: false 
 #https://community.home-assistant.io/t/mqtt-how-to-retain-sonoff-switch-setting-across-restarts-of-ha/21504
 
     - platform: mqtt
-      name: "SUMP_MOTOR"
-      icon: mdi:arch
-      command_topic: "cmnd/sumpmotor/power"
-      state_topic: "stat/sumpmotor/POWER"
+      name: "1st_FLR_HEAD-ROOM"
+      icon: mdi:light-switch
+      command_topic: "cmnd/1st_headroom/power"
+      state_topic: "stat/1st_headroom/POWER"
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
       retain: true
 
     - platform: mqtt
-      name: "LAMP"
+      name: "2nd_FLR_HEAD-ROOM"
       icon: mdi:light-switch
-      command_topic: "cmnd/lamp/power"
-      state_topic: "stat/lamp/POWER"
+      command_topic: "cmnd/2nd_headroom/power"
+      state_topic: "stat/2nd_headroom/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true
+
+    - platform: mqtt
+      name: "VINAYAGAR"
+      icon: mdi:light-switch
+      command_topic: "cmnd/vinayagar/power"
+      state_topic: "stat/vinayagar/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true
+      
+    - platform: mqtt
+      name: "GATE_LAMP"
+      icon: mdi:light-switch
+      command_topic: "cmnd/gatelamp/power"
+      state_topic: "stat/gatelamp/POWER"
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
       retain: true 
       
     - platform: mqtt
-      name: "TEMP_MOTOR"
+      name: "GND_LAMP"
       icon: mdi:light-switch
-      command_topic: "cmnd/temp_motor/power"
-      state_topic: "stat/temp_motor/POWER"
+      command_topic: "cmnd/gnd_lamp/power"
+      state_topic: "stat/gnd_lamp/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: true 
+      
+    - platform: mqtt
+      name: "1st_PORTICO"
+      icon: mdi:light-switch
+      command_topic: "cmnd/1stportico/power"
+      state_topic: "stat/1stportico/POWER"
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
@@ -107,23 +105,43 @@ switch light-controls:
 
 binary_sensor:
   - platform: ping
-    host: !secret lamp_sonoff_ip
-    name: Lamp_sonoff
+    host: !secret elevation_lamp_ip
+    name: Elevation
     count: 2
     scan_interval: 30
   - platform: ping
     host: !secret sump_motor_ip
-    name: sump_motor
+    name: Sump_Motor
     count: 2
     scan_interval: 30
   - platform: ping
-    host: !secret temp_motor_ip
-    name: temp_motor
+    host: !secret 1st_floor_head_room_ip
+    name: 1st_Head_Room
     count: 2
     scan_interval: 30
   - platform: ping
-    host: !secret over_tank_sensor_ip
-    name: over_tank
+    host: !secret 2nd_floor_head_room_ip
+    name: 2nd_Head_Room
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: !secret vinayagar_ip
+    name: Vinayagar
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: !secret gate_lamp_ip
+    name: Gate_Lamp
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: !secret gnd_floor_lamp_ip
+    name: Gnd_Lamp
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: !secret 1st_floor_portico
+    name: 1st_Portico
     count: 2
     scan_interval: 30
     
