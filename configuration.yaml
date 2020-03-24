@@ -56,7 +56,6 @@ switch light-controls:
     - platform: mqtt
       name: "2nd_FLR_HEAD-ROOM"
       icon: mdi:light-switch
-      state_color: true
       command_topic: "cmnd/2nd_headroom/power"
       state_topic: "stat/2nd_headroom/POWER"
       qos: 1
