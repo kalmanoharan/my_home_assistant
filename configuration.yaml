@@ -19,7 +19,7 @@ mqtt:
     port: 1883
     username: !secret broker_username
     password: !secret broker_password
-    
+
 
 switch light-controls:
     - platform: mqtt

@@ -7,4 +7,3 @@ System_Metrics:
     - sensor.processor_use
     - sensor.network_throughput_in_eth0
     - sensor.network_throughput_out_eth0
-
