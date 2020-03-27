@@ -12,6 +12,9 @@
   - data:
       entity_id: switch.1st_portico
     service: switch.turn_on
+  - data: {}
+    entity_id: switch.elevation
+    service: switch.turn_on
 - id: '1583600836399'
   alias: Turn-off all the lights
   trigger:
@@ -19,17 +22,17 @@
     platform: time
   condition: []
   action:
-  - data:
-      entity_id: switch.gnd_lamp
+  - data: {}
+    entity_id: switch.vinayagar
     service: switch.turn_off
-  - data:
-      entity_id: switch.vinayagar
+  - data: {}
+    entity_id: switch.gnd_lamp
     service: switch.turn_off
 - id: '1585061076035'
   alias: Turn-off specific lights on switch on others
   description: ''
   trigger:
-  - at: '20:30'
+  - at: '20:00'
     platform: time
   condition: []
   action:
@@ -44,4 +47,15 @@
     service: switch.turn_off
   - data: {}
     entity_id: switch.gnd_lamp
+    service: switch.turn_on
+- id: '1585302778929'
+  alias: Turn Vinayagar On at 7:00
+  description: ''
+  trigger:
+  - at: '19:00'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.vinayagar
     service: switch.turn_on
