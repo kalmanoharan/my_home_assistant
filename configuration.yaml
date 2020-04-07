@@ -104,6 +104,24 @@ switch light-controls:
       payload_on: "ON"
       payload_off: "OFF"
 
+    - platform: mqtt
+      name: "Tank-1"
+      icon: mdi:light-switch
+      command_topic: "cmnd/overtank1/power"
+      state_topic: "stat/overtank1/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - platform: mqtt
+      name: "Bore-Tanks"
+      icon: mdi:light-switch
+      command_topic: "cmnd/tank23/power"
+      state_topic: "stat/tank23/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+
 
 binary_sensor:
   - platform: ping
@@ -152,12 +170,12 @@ binary_sensor:
     count: 2
     scan_interval: 15
   - platform: ping
-    host: 192.168.1.107
+    host: !secret over_tank_1_ip
     name: Over_Tank_sensor-1
     count: 2
     scan_interval: 15
   - platform: ping
-    host: 192.168.1.183
+    host: !secret over_tank_23_ip
     name: Over_Tank_sensor-2
     count: 2
     scan_interval: 15

@@ -15,6 +15,9 @@
   - data: {}
     entity_id: switch.elevation
     service: switch.turn_on
+  - data: {}
+    entity_id: switch.vinayagar
+    service: switch.turn_on
 - id: '1583600836399'
   alias: Turn-off all the lights
   trigger:
@@ -29,16 +32,13 @@
     entity_id: switch.gnd_lamp
     service: switch.turn_off
 - id: '1585061076035'
-  alias: Turn-off specific lights on switch on others
+  alias: Turn-off Elevation,Gate Lamp lights, On GND Lamp
   description: ''
   trigger:
   - at: '20:00'
     platform: time
   condition: []
   action:
-  - data: {}
-    entity_id: switch.1st_portico
-    service: switch.turn_off
   - data: {}
     entity_id: switch.gate_lamp
     service: switch.turn_off
@@ -49,13 +49,76 @@
     entity_id: switch.gnd_lamp
     service: switch.turn_on
 - id: '1585302778929'
-  alias: Turn Vinayagar On at 7:00
+  alias: Turn Vinayagar,1st Portico Off at 22:00
   description: ''
   trigger:
-  - at: '19:00'
+  - at: '22:00'
     platform: time
   condition: []
   action:
   - data: {}
     entity_id: switch.vinayagar
-    service: switch.turn_on
+    service: switch.turn_off
+  - data: {}
+    entity_id: switch.1st_portico
+    service: switch.turn_off
+- id: '1586170890757'
+  alias: Notify if Bore Tank Goes Empty
+  description: Notify if Bore Tank Goes Empty
+  trigger:
+  - entity_id: switch.bore_tanks
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Empty, On the
+        Bore motor'
+      title: BORE TANKS GOING TO BE EMPTY
+    service: notify.mypushbullet
+- id: '1586171756740'
+  alias: Notify if Corp Tank Goes Empty
+  description: ''
+  trigger:
+  - entity_id: switch.tank_1
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Corp Tank will be Empty, On
+        the Sump motor'
+      title: CORP TANK GOING TO BE EMPTY
+    service: notify.mypushbullet
+- id: '1586171839711'
+  alias: Notify if Corp Tank Gets Full
+  description: ''
+  trigger:
+  - entity_id: switch.tank_1
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank Going be Empty, Off the
+        Sump motor'
+      title: CORP TANK GOING TO BE FULL
+    service: notify.mypushbullet
+- id: '1586171933447'
+  alias: Notify if Bore Tanks Gets Full
+  description: ''
+  trigger:
+  - entity_id: switch.bore_tanks
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Bore Tanks Going to be Empty,
+        OFF the Bore motor'
+      title: BORE TANKS GOING TO FULL
+    service: notify.mypushbullet
