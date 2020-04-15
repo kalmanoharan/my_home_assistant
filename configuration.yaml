@@ -123,6 +123,14 @@ switch light-controls:
       payload_on: "ON"
       payload_off: "OFF"
 
+    - platform: mqtt
+      name: "Geek Charger"
+      icon: mdi:light-switch
+      command_topic: "cmnd/laptop/power"
+      state_topic: "stat/laptop/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
 
 binary_sensor:
   - platform: ping
@@ -200,6 +208,11 @@ sensor:
 #          value_template: "{{ state_attr('binary_sensor.2nd_Head_Room','round_trip_time_avg') | int }}"
 #          friendly_name: 'Floor_RTT'
 
+#Ubuntu charge
+  - platform: command_line
+    name: Geek Laptop Battery
+    command: "ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no geek@192.168.1.245 cat /sys/class/power_supply/BAT0/capacity"
+    unit_of_measurement: "%"
 
 webostv:
   host: 192.168.1.214

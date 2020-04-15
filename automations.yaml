@@ -137,3 +137,27 @@
         icon: www/test.png
       message: Food Time...Come and Eat
     service: notify.living_room_tv
+- id: '1586927169512'
+  alias: 'Switch ON Charger if Laptop battery goes Less than 20 % '
+  description: ''
+  trigger:
+  - below: '20'
+    entity_id: sensor.geek_laptop_battery
+    platform: numeric_state
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.geek_charger
+    service: switch.turn_on
+- id: '1586927260164'
+  alias: 'Switch OFF Charger if Laptop battery goes Greater than 95 % '
+  description: ''
+  trigger:
+  - above: '95'
+    entity_id: sensor.geek_laptop_battery
+    platform: numeric_state
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.geek_charger
+    service: switch.turn_off
