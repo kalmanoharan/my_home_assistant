@@ -1,0 +1,22 @@
+#https://home-assistant.io/components/binary_sensor/
+#Reference https://github.com/SilvrrGIT/HomeAssistant/blob/master/recorder.yaml
+
+  purge_interval: 1
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - automation
+      - updater
+      - group
+      - script
+      - zone
+      - timer
+    entities:
+      - sun.sun
+
+
+####################################################
+#                                                  #
+#          END OF CONFIGURATION FILE               #
+#                                                  #
+####################################################

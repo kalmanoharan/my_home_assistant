@@ -12,6 +12,7 @@ tts:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+recorder: !include recorder.yaml
 
 mqtt:
     broker: !secret broker_ip
@@ -193,16 +194,85 @@ sensor:
       - type: throughput_network_out
         arg: eth0
 
-  - platform: template
-    sensors:
-       second_floor_avg_rtt:
-          value_template: "{{ state_attr('binary_sensor.2nd_Head_Room','round_trip_time_avg') | int }}"
-          friendly_name: 'Floor_RTT'
+#  - platform: template
+#    sensors:
+#       second_floor_avg_rtt:
+#          value_template: "{{ state_attr('binary_sensor.2nd_Head_Room','round_trip_time_avg') | int }}"
+#          friendly_name: 'Floor_RTT'
+
+
+webostv:
+  host: 192.168.1.214
+  name: Living Room TV
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: E8-F2-E2-60-B6-D4
+  customize:
+    sources:
+      - AVhhgggg
+      - youtube
+      - netflix
+      - livetv
+media_player:
+
 
 notify:
   - name: mypushbullet
     platform: pushbullet
     api_key: !secret pushbullet_api_key
+
+  - name: rednotify
+    platform: group
+    services:
+      - service: living_room_tv
+        data:
+            data:
+                icon: www/red.png
+
+  - name: yellownotify
+    platform: group
+    services:
+      - service: living_room_tv
+        data:
+            data:
+                icon: www/yellow.png
+
+  - name: bluenotify
+    platform: group
+    services:
+      - service: living_room_tv
+        data:
+            data:
+                icon: www/blue.png
+    
+alert:
+  bore_tank_empty:
+    name: Bore Tank Going to be Empty
+    message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Empty, On the Bore motor'
+    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the Bore motor'
+    entity_id: switch.bore_tanks
+    state: 'on'
+    repeat: 0.1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - rednotify
+  corp_tank_empty:
+    name: Corp Tank Going to be Empty
+    message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Corp Tank will be Empty, On the Sump motor'
+    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Corp Tank will be Full, Off the Sump motor'
+    entity_id: switch.tank_1
+    state: 'on'
+    repeat: 0.1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - bluenotify
+
+
+
+
 
 timer:
   bore_timer:
