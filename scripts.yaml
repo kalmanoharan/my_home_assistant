@@ -1,1 +1,15 @@
-{}
+'1587185083808':
+  alias: Headphone
+  sequence:
+  - data:
+      entity_id: media_player.living_room_tv
+      sound_output: headphone
+    entity_id: media_player.living_room_tv
+    service: webostv.select_sound_output
+'1587185152304':
+  alias: TV Speaker
+  sequence:
+  - data:
+      entity_id: media_player.living_room_tv
+      sound_output: tv_speaker
+    service: webostv.select_sound_output

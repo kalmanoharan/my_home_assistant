@@ -103,7 +103,7 @@
   condition: []
   action:
   - data:
-      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank Going be Empty, Off the
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank Going be FULL, Off the
         Sump motor'
       title: CORP TANK GOING TO BE FULL
     service: notify.mypushbullet
@@ -118,25 +118,10 @@
   condition: []
   action:
   - data:
-      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Bore Tanks Going to be Empty,
+      message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Bore Tanks Going to be FULL,
         OFF the Bore motor'
       title: BORE TANKS GOING TO FULL
     service: notify.mypushbullet
-- id: '1586793227620'
-  alias: tvautomation
-  description: ''
-  trigger:
-  - entity_id: switch.2nd_flr_head_room
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      data:
-        icon: www/test.png
-      message: Food Time...Come and Eat
-    service: notify.living_room_tv
 - id: '1586927169512'
   alias: 'Switch ON Charger if Laptop battery goes Less than 20 % '
   description: ''
