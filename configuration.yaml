@@ -188,6 +188,22 @@ binary_sensor:
     name: Over_Tank_sensor-2
     count: 2
     scan_interval: 15
+  - platform: template
+    sensors:
+      bore_tank_last_full_time:
+        value_template: >-
+            {% set last_bore_full_time = (as_timestamp(states.sensor.time.last_changed) - as_timestamp(states.switch.bore_tanks.last_changed)) %}
+            {% set last_bore_full_time_in_min = ((last_bore_full_time / 60)) | int %}
+            {{ is_state("switch.bore_tanks", "off") and last_bore_full_time_in_min < 10 }}
+        friendly_name: bore_fill_time 
+  - platform: template
+    sensors:
+      corp_tank_last_full_time:
+        value_template: >-
+            {% set last_corp_full_time = (as_timestamp(states.sensor.time.last_changed) - as_timestamp(states.switch.tank_1.last_changed)) %}
+            {% set last_corp_full_time_in_min = ((last_corp_full_time / 60)) | int %}
+            {{ is_state("switch.tank_1", "off") and last_corp_full_time_in_min < 10 }}
+        friendly_name: corp_fill_time    
     
 sensor:
   - platform: systemmonitor
@@ -201,12 +217,15 @@ sensor:
         arg: eth0
       - type: throughput_network_out
         arg: eth0
-
+  - platform: time_date
+  
 #  - platform: template
 #    sensors:
 #       second_floor_avg_rtt:
 #          value_template: "{{ state_attr('binary_sensor.2nd_Head_Room','round_trip_time_avg') | int }}"
 #          friendly_name: 'Floor_RTT'
+
+
 
 #Ubuntu charge
   - platform: command_line
@@ -259,11 +278,19 @@ notify:
         data:
             data:
                 icon: www/blue.png
+
+  - name: greennotify
+    platform: group
+    services:
+      - service: living_room_tv
+        data:
+            data:
+                icon: www/green.png
     
 alert:
   bore_tank_empty:
     name: Bore Tank Going to be Empty
-    message: '{{ states.alert.bore_tank_empty.last_changed.now().strftime("%b %d,%Y %I:%M%p") }} Tank will be Empty, On the Bore motor'
+    message: '{{ as_timestamp(states.switch.bore_tanks.last_changed) | timestamp_local }} Tank going to be Empty, On the Bore motor'
     #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the Bore motor'
     entity_id: switch.bore_tanks
     state: 'on'
@@ -274,7 +301,7 @@ alert:
       - rednotify
   corp_tank_empty:
     name: Corp Tank Going to be Empty
-    message: '{{ states.alert.corp_tank_empty.last_changed.now().strftime("%b %d,%Y %I:%M%p") }} Corp Tank will be Empty, On the Sump motor'
+    message: '{{ as_timestamp(states.switch.tank_1.last_changed) | timestamp_local }} Corp Tank will be Empty, On the Sump motor'
     #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Corp Tank will be Full, Off the Sump motor'
     entity_id: switch.tank_1
     state: 'on'
@@ -284,14 +311,33 @@ alert:
     notifiers:
       - bluenotify
 
+  bore_tank_full_alert:
+    name: Bore Tank Filled
+    message: '{{ as_timestamp(states.switch.bore_tanks.last_changed) | timestamp_local }} BORE Tank About to Full, OFF the Bore motor'
+    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the Bore motor'
+    entity_id: binary_sensor.bore_tank_last_full_time
+    repeat: 0.1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - greennotify
+      
+  corp_tank_full_alert:
+    name: Corp Tank Filled
+    message: '{{ as_timestamp(states.switch.tank_1.last_changed) | timestamp_local }} CORP Tank About to Full, OFF the Bore motor'
+    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the Bore motor'
+    entity_id: binary_sensor.corp_tank_last_full_time
+    repeat: 0.1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - greennotify
 
 
-
-
-timer:
-  bore_timer:
-    duration: '00:10:00'
-  run_bore_timer:
-    duration: '00:30:00'
-  sump_timer:
-    duration: '00:10:00'
+#timer:
+#  bore_timer:
+#    duration: '00:10:00'
+#  run_bore_timer:
+#    duration: '00:30:00'
+#  sump_timer:
+#    duration: '00:10:00'
