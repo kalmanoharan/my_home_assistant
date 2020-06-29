@@ -108,8 +108,8 @@ switch light-controls:
     - platform: mqtt
       name: "Tank-1"
       icon: mdi:light-switch
-      command_topic: "cmnd/overtank1/power"
-      state_topic: "stat/overtank1/POWER"
+      command_topic: "cmnd/tank1/power"
+      state_topic: "stat/tank1/POWER"
       qos: 1
       payload_on: "ON"
       payload_off: "OFF"
@@ -232,7 +232,7 @@ sensor:
     name: Geek Laptop Battery
     command: "ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no geek@192.168.1.245 cat /sys/class/power_supply/BAT0/capacity"
     unit_of_measurement: "%"
-    scan_interval: 31536000
+    #scan_interval: 31536000
 
 webostv:
   host: 192.168.1.214
@@ -324,8 +324,8 @@ alert:
       
   corp_tank_full_alert:
     name: Corp Tank Filled
-    message: '{{ as_timestamp(states.switch.tank_1.last_changed) | timestamp_local }} CORP Tank About to Full, OFF the Bore motor'
-    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the Bore motor'
+    message: '{{ as_timestamp(states.switch.tank_1.last_changed) | timestamp_local }} CORP Tank About to Full, OFF the SUMP motor'
+    #done_message: '{{now().strftime("%b %d, %Y %I:%M%p")}} Tank will be Full, Off the SUMP motor'
     entity_id: binary_sensor.corp_tank_last_full_time
     repeat: 0.1
     can_acknowledge: true

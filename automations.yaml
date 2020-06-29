@@ -13,9 +13,6 @@
       entity_id: switch.1st_portico
     service: switch.turn_on
   - data: {}
-    entity_id: switch.elevation
-    service: switch.turn_on
-  - data: {}
     entity_id: switch.vinayagar
     service: switch.turn_on
 - id: '1583600836399'
@@ -41,9 +38,6 @@
   action:
   - data: {}
     entity_id: switch.gate_lamp
-    service: switch.turn_off
-  - data: {}
-    entity_id: switch.elevation
     service: switch.turn_off
   - data: {}
     entity_id: switch.gnd_lamp
