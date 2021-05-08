@@ -175,7 +175,7 @@ binary_sensor:
     scan_interval: 30
   - platform: ping
     host: 192.168.1.7
-    name: MI_ROUTER
+    name: PI_WIFI
     count: 2
     scan_interval: 15
   - platform: ping
@@ -243,7 +243,7 @@ webostv:
       mac: E8-F2-E2-60-B6-D4
   customize:
     sources:
-      - AVhhgggg
+      - HDMI1
       - youtube
       - netflix
       - livetv
