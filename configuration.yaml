@@ -228,11 +228,11 @@ sensor:
 
 
 #Ubuntu charge
-  - platform: command_line
-    name: Geek Laptop Battery
-    command: "ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no geek@192.168.1.245 cat /sys/class/power_supply/BAT0/capacity"
-    unit_of_measurement: "%"
-    #scan_interval: 31536000
+#  - platform: command_line
+#    name: Geek Laptop Battery
+#    command: "ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no geek@192.168.1.245 cat /sys/class/power_supply/BAT0/capacity"
+#    unit_of_measurement: "%"
+#    #scan_interval: 31536000
 
 webostv:
   host: 192.168.1.214

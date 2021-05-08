@@ -5,12 +5,12 @@
   purge_keep_days: 7
   exclude:
     domains:
-      - automation
-      - updater
-      - group
-      - script
-      - zone
-      - timer
+      #- automation
+      #- updater
+      #- group
+      #- script
+      #- zone
+      #- timer
     entities:
       - sun.sun
 
